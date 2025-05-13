@@ -3,10 +3,7 @@
   with:
     inlineScript: |
       # Login to Azure using a service principal
-      az login --service-principal \
-        --username "${{ secrets.AZURE_CLIENT_ID }}" \
-        --password "${{ secrets.AZURE_CLIENT_SECRET }}" \
-        --tenant "${{ secrets.AZURE_TENANT_ID }}"
+      az login --service-principal --username "${{ secrets.AZURE_CLIENT_ID }}" --password "${{ secrets.AZURE_CLIENT_SECRET }}" --tenant "${{ secrets.AZURE_TENANT_ID }}"
 
       # Print current directory
       echo "Current directory: $(pwd)"
@@ -19,9 +16,4 @@
       ls -al
 
       # Upload frontend contents using login-based auth (requires SP to have 'Storage Blob Data Contributor' role)
-      az storage blob upload-batch \
-        --account-name raresonalcloudresume \
-        --destination '$web' \
-        --source . \
-        --pattern "*" \
-        --auth-mode login
+      az storage blob upload-batch --account-name raresonalcloudresume --destination '$web' --source . --pattern "*" --auth-mode login
