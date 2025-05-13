@@ -6,28 +6,38 @@ from fastapi.middleware.cors import CORSMiddleware
 from azure.storage.blob import BlobServiceClient
 from azure.data.tables import TableServiceClient, UpdateMode
 from azure.core.exceptions import ResourceNotFoundError
-from dotenv import load_dotenv
-
-# Load environment variables from .env
-load_dotenv()
 
 # Create FastAPI app
 app = FastAPI()
 
-# Enable CORS (for local development, allows all origins — update for production)
+# Enable CORS (configure properly for production)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Change to ["http://127.0.0.1:5500"] or your frontend domain for production
+    allow_origins=["*"],  # Change this to your frontend domain for production
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Load environment variables
+# Load environment variables from Azure App Service Application Settings
 AZURE_STORAGE_CONNECTION_STRING = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
 BLOB_CONTAINER = os.getenv("BLOB_CONTAINER")
 BLOB_NAME = os.getenv("BLOB_NAME")
 TABLE_NAME = os.getenv("TABLE_NAME")
+
+# Check for required variables at startup
+missing_vars = [
+    var_name for var_name in [
+        "AZURE_STORAGE_CONNECTION_STRING", 
+        "BLOB_CONTAINER", 
+        "BLOB_NAME", 
+        "TABLE_NAME"
+    ] if not os.getenv(var_name)
+]
+if missing_vars:
+    raise RuntimeError(f"Missing environment variables: {', '.join(missing_vars)}")
+
+# Constants for table entity
 PARTITION_KEY = "resume"
 ROW_KEY = "visitor"
 
@@ -62,5 +72,5 @@ async def download_resume():
     return StreamingResponse(
         stream,
         media_type="application/pdf",
-        headers={"Content-Disposition": f"attachment;filename={BLOB_NAME}"},
+        headers={"Content-Disposition": f"attachment; filename={BLOB_NAME}"},
     )
