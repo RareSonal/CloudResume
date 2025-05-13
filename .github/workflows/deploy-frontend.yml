@@ -29,11 +29,14 @@ jobs:
             # Change to the frontend directory
             cd frontend
 
-            # Upload frontend contents to $web container
-            az storage blob upload-batch 
-              --account-name raresonalcloudresume 
-              --destination '$web' 
-              --source . 
-              --pattern "*" 
-              --auth-mode key 
+            echo "List contents of the frontend directory:"
+            ls -R
+
+            # Upload frontend contents to $web container with full paths
+            az storage blob upload-batch \
+              --account-name raresonalcloudresume \
+              --destination '$web' \
+              --source $(pwd) \
+              --pattern "*" \
+              --auth-mode key \
               --account-key "${{ secrets.AZURE_STORAGE_KEY }}"
