@@ -26,11 +26,14 @@ jobs:
             echo "List contents of repository:"
             ls -R
 
+            # Change to the frontend directory
+            cd frontend
+
             # Upload frontend contents to $web container
             az storage blob upload-batch 
               --account-name raresonalcloudresume 
               --destination '$web' 
-              --source frontend 
+              --source . 
               --pattern "*" 
               --auth-mode key 
               --account-key "${{ secrets.AZURE_STORAGE_KEY }}"
