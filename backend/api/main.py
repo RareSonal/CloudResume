@@ -7,40 +7,42 @@ from azure.storage.blob import BlobServiceClient
 from azure.data.tables import TableServiceClient, UpdateMode
 from azure.core.exceptions import ResourceNotFoundError
 
-# Create FastAPI app
+# === Create FastAPI app ===
 app = FastAPI()
 
-# Enable CORS (configure properly for production)
+# === Configure CORS for Production ===
+# Allow requests only from your actual frontend domain
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Change this to your frontend domain for production
+    allow_origins=["https://raresonalcloudresume.z30.web.core.windows.net"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# Load environment variables from Azure App Service Application Settings
+# === Load environment variables from Azure Application Settings ===
 AZURE_STORAGE_CONNECTION_STRING = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
 BLOB_CONTAINER = os.getenv("BLOB_CONTAINER")
 BLOB_NAME = os.getenv("BLOB_NAME")
 TABLE_NAME = os.getenv("TABLE_NAME")
 
-# Check for required variables at startup
-missing_vars = [
-    var_name for var_name in [
-        "AZURE_STORAGE_CONNECTION_STRING", 
-        "BLOB_CONTAINER", 
-        "BLOB_NAME", 
-        "TABLE_NAME"
-    ] if not os.getenv(var_name)
-]
+# === Validate required environment variables ===
+required_vars = {
+    "AZURE_STORAGE_CONNECTION_STRING": AZURE_STORAGE_CONNECTION_STRING,
+    "BLOB_CONTAINER": BLOB_CONTAINER,
+    "BLOB_NAME": BLOB_NAME,
+    "TABLE_NAME": TABLE_NAME,
+}
+
+missing_vars = [k for k, v in required_vars.items() if not v]
 if missing_vars:
     raise RuntimeError(f"Missing environment variables: {', '.join(missing_vars)}")
 
-# Constants for table entity
+# === Constants for table entity ===
 PARTITION_KEY = "resume"
 ROW_KEY = "visitor"
 
+# === API endpoint: Visitor Counter ===
 @app.get("/api/visitor")
 async def get_visitor_count():
     table_client = TableServiceClient.from_connection_string(
@@ -57,6 +59,7 @@ async def get_visitor_count():
 
     return JSONResponse(content={"count": entity["count"]})
 
+# === API endpoint: Resume Download ===
 @app.get("/api/resume")
 async def download_resume():
     blob_service_client = BlobServiceClient.from_connection_string(
