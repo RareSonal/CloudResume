@@ -1,19 +1,47 @@
-- name: Upload frontend to Azure Blob Storage
-  uses: azure/cli@v1
-  with:
-    inlineScript: |
-      # Login to Azure using a service principal
-      az login --service-principal --username "${{ secrets.AZURE_CLIENT_ID }}" --password "${{ secrets.AZURE_CLIENT_SECRET }}" --tenant "${{ secrets.AZURE_TENANT_ID }}"
+# GitHub Action to deploy frontend to Azure Blob Storage ($web)
+# Uses Service Principal with RBAC (Storage Blob Data Contributor)
 
-      # Print current directory
-      echo "Current directory: $(pwd)"
-      
-      # Change into the frontend directory
-      cd frontend
+name: Deploy frontend to Azure Blob Storage - raresonalcloudresume
 
-      # List contents for debug
-      echo "Uploading these files:"
-      ls -al
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
-      # Upload frontend contents using login-based auth (requires SP to have 'Storage Blob Data Contributor' role)
-      az storage blob upload-batch --account-name raresonalcloudresume --destination '$web' --source . --pattern "*" --auth-mode login
+jobs:
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: List files for debug
+        run: ls -R
+
+      - name: Set up Azure CLI
+        uses: azure/cli@v1
+        with:
+          inlineScript: |
+            echo "Logging in to Azure..."
+            az login --service-principal \
+              --username "${{ secrets.AZURE_CLIENT_ID }}" \
+              --password "${{ secrets.AZURE_CLIENT_SECRET }}" \
+              --tenant "${{ secrets.AZURE_TENANT_ID }}"
+
+            echo "Changing to frontend directory..."
+            cd frontend
+
+            echo "Listing frontend directory contents:"
+            ls -al
+
+            echo "Uploading to Azure Blob Storage..."
+            az storage blob upload-batch \
+              --account-name raresonalcloudresume \
+              --destination '$web' \
+              --source . \
+              --pattern "*" \
+              --auth-mode login
