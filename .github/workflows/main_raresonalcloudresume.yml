@@ -33,7 +33,9 @@ jobs:
         run: ls -R
       
       - name: Install dependencies
-        run: pip install -r ./backend/requirements.txt
+        run: |
+          cd backend
+          pip install -r requirements.txt
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
