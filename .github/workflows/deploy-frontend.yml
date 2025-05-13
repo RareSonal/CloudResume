@@ -1,24 +1,9 @@
-name: Deploy Frontend to Azure Blob Storage
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
       - name: Upload frontend to Azure Blob Storage
         uses: azure/cli@v1
-        with:
-          inlineScript: |
+          with:
+            inlineScript: |
             # Login to Azure using a service principal
-            az login --service-principal 
+            az login --service-principal \
               --username "${{ secrets.AZURE_CLIENT_ID }}" 
               --password "${{ secrets.AZURE_CLIENT_SECRET }}" 
               --tenant "${{ secrets.AZURE_TENANT_ID }}"
