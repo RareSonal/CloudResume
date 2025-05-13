@@ -1,0 +1,35 @@
+name: Deploy Frontend to Azure Blob Storage
+
+on:
+  push:
+    branches:
+      - main   # This will trigger the action when changes are pushed to the `main` branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    # Checkout the repository
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # Upload files to Azure Blob Storage
+    - name: Upload frontend to Azure Blob Storage
+      uses: azure/cli@v1
+      with:
+        inlineScript: |
+          # Install Azure CLI
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+          # Log in to Azure using GitHub secrets
+          az login --service-principal -u ${{ secrets.AZURE_CLIENT_ID }} -p ${{ secrets.AZURE_CLIENT_SECRET }} --tenant ${{ secrets.AZURE_TENANT_ID }}
+
+          # Upload the frontend folder to Azure Storage
+          az storage blob upload-batch 
+            --account-name raresonalcloudresume 
+            --destination \$web 
+            --source ./frontend 
+            --auth-mode key 
+            --account-key ${{ secrets.AZURE_STORAGE_KEY }}
+
