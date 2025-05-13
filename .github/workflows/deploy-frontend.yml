@@ -1,18 +1,39 @@
+name: Deploy Frontend to Azure Blob Storage
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Upload frontend to Azure Blob Storage
         uses: azure/cli@v1
         with:
-            inlineScript: |
+          inlineScript: |
             # Login to Azure using a service principal
-            az login --service-principal 
-              --username "${{ secrets.AZURE_CLIENT_ID }}" 
-              --password "${{ secrets.AZURE_CLIENT_SECRET }}" 
+            az login --service-principal \
+              --username "${{ secrets.AZURE_CLIENT_ID }}" \
+              --password "${{ secrets.AZURE_CLIENT_SECRET }}" \
               --tenant "${{ secrets.AZURE_TENANT_ID }}"
 
-            # Upload frontend files to the $web container
-            az storage blob upload-batch 
-              --account-name raresonalcloudresume 
-              --destination '$web' 
-              --source ./frontend 
-              --pattern "*" 
-              --auth-mode key 
+            echo "Current directory:"
+            pwd
+
+            echo "List contents of repository:"
+            ls -R
+
+            # Upload frontend contents to $web container
+            az storage blob upload-batch \
+              --account-name raresonalcloudresume \
+              --destination '$web' \
+              --source frontend \
+              --pattern "*" \
+              --auth-mode key \
               --account-key "${{ secrets.AZURE_STORAGE_KEY }}"
