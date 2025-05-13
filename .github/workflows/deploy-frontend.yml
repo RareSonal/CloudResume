@@ -33,10 +33,5 @@ jobs:
             ls -R
 
             # Upload frontend contents to $web container with full paths
-            az storage blob upload-batch \
-              --account-name raresonalcloudresume \
-              --destination '$web' \
-              --source $(pwd) \
-              --pattern "*" \
-              --auth-mode key \
-              --account-key "${{ secrets.AZURE_STORAGE_KEY }}"
+            az storage blob upload-batch --account-name raresonalcloudresume --destination '$web' --source $(pwd) --pattern "*" --auth-mode key --account-key "${{ secrets.AZURE_STORAGE_KEY }}"
+
