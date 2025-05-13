@@ -18,9 +18,9 @@ jobs:
         with:
           inlineScript: |
             # Login to Azure using a service principal
-            az login --service-principal \
-              --username "${{ secrets.AZURE_CLIENT_ID }}" \
-              --password "${{ secrets.AZURE_CLIENT_SECRET }}" \
+            az login --service-principal 
+              --username "${{ secrets.AZURE_CLIENT_ID }}" 
+              --password "${{ secrets.AZURE_CLIENT_SECRET }}" 
               --tenant "${{ secrets.AZURE_TENANT_ID }}"
 
             echo "Current directory:"
@@ -30,10 +30,10 @@ jobs:
             ls -R
 
             # Upload frontend contents to $web container
-            az storage blob upload-batch \
-              --account-name raresonalcloudresume \
-              --destination '$web' \
-              --source frontend \
-              --pattern "*" \
-              --auth-mode key \
+            az storage blob upload-batch 
+              --account-name raresonalcloudresume 
+              --destination '$web' 
+              --source frontend 
+              --pattern "*" 
+              --auth-mode key 
               --account-key "${{ secrets.AZURE_STORAGE_KEY }}"
