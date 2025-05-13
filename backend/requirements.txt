@@ -1,0 +1,6 @@
+fastapi
+azure-functions
+aiohttp
+python-dotenv
+azure-storage-blob
+azure-data-tables
