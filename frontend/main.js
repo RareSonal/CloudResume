@@ -1,9 +1,9 @@
 // Function to fetch and update the visitor count
 async function fetchVisitorCount() {
     try {
-        const response = await fetch('http://127.0.0.1:8000/api/visitor');
+        const response = await fetch('/api/visitor');
         const data = await response.json();
-        document.getElementById('counter').textContent = data.count; // Update visitor count on page
+        document.getElementById('counter').textContent = data.count;
     } catch (error) {
         console.error('Error fetching visitor count:', error);
     }
@@ -12,17 +12,16 @@ async function fetchVisitorCount() {
 // Function to download the resume
 async function downloadResume() {
     try {
-        const response = await fetch('http://127.0.0.1:8000/api/resume');
+        const response = await fetch('/api/resume');
         
-        // If resume fetch is successful, convert it to a blob
         if (response.ok) {
             const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob); // Create a URL for the blob
+            const url = window.URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = "SonaliMandrupkar_Resume.pdf"; // Specify the download file name
+            a.download = "SonaliMandrupkar_Resume.pdf";
             a.click();
-            window.URL.revokeObjectURL(url); // Clean up the URL object after download
+            window.URL.revokeObjectURL(url);
         } else {
             console.error('Error fetching resume:', response.statusText);
         }
@@ -31,5 +30,4 @@ async function downloadResume() {
     }
 }
 
-// Fetch visitor count when the page loads
 window.onload = fetchVisitorCount;
