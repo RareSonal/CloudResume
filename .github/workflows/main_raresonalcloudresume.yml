@@ -28,6 +28,9 @@ jobs:
         run: |
           python -m venv venv
           source venv/bin/activate
+          
+      - name: List files in root
+        run: ls -R
       
       - name: Install dependencies
         run: pip install -r ./backend/requirements.txt
