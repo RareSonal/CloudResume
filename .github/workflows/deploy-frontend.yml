@@ -1,6 +1,6 @@
       - name: Upload frontend to Azure Blob Storage
         uses: azure/cli@v1
-          with:
+        with:
             inlineScript: |
             # Login to Azure using a service principal
             az login --service-principal 
