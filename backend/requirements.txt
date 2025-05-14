@@ -1,5 +1,5 @@
 fastapi
-azure-functions
+uvicorn[standard]
 aiohttp
 python-dotenv
 azure-storage-blob
