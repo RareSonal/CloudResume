@@ -44,4 +44,5 @@ jobs:
               --destination '$web' \
               --source . \
               --pattern "*" \
-              --auth-mode login
+              --auth-mode login \
+              --overwrite true
