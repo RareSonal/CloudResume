@@ -1,5 +1,6 @@
 fastapi
 uvicorn[standard]
+gunicorn
 aiohttp
 python-dotenv
 azure-storage-blob
