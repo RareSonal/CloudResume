@@ -33,4 +33,12 @@ export async function downloadResume() {
   }
 }
 
-window.onload = fetchVisitorCount;
+// Register download button listener after DOM is ready
+window.onload = () => {
+  fetchVisitorCount();
+
+  const resumeButton = document.getElementById('resumeDownload');
+  if (resumeButton) {
+    resumeButton.addEventListener('click', downloadResume);
+  }
+};
