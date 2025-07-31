@@ -11,11 +11,11 @@ It highlights my skills in cloud computing, automation, and full-stack developme
 - Backend API built with FastAPI and deployed to Azure App Service
 - CI/CD pipelines using GitHub Actions
 
-📊 Architecture Diagram
+# 📊 Architecture Diagram
 
-          User
-            │
-            ▼
+User
+│
+▼
 Browser (Frontend: HTML/CSS/JS)
  │
  ├──> Fetch Visitor Count (/api/visitor)
@@ -73,9 +73,9 @@ Backend
 
 # 📬 Contact
 Sonali Mandrupkar
-📧 sonali.mandrupkar@gmail.com
-🔗 LinkedIn
-💻 GitHub
+- 📧 Email    : sonali.mandrupkar@gmail.com
+- 🔗 LinkedIn : https://www.linkedin.com/in/sonali-mandrupkar-76bb4129/
+- 💻 GitHub   : https://github.com/RareSonal/
 
 # 📝 Acknowledgements
 
