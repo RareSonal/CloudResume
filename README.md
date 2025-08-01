@@ -26,11 +26,11 @@ It highlights my skills in cloud computing and automation by combining a static 
                                                                  |
                                                     ┌────────────┼───────────────┐
                                                     ▼                            ▼
-                                           ┌────────────────────┐     ┌────────────────────┐           
-                                           │ Azure Table Storage|     | Azure Blob Storage |
-                                           |   (Fetch Visitor   |     │     (Download      |
-                                           |      Count)        |     |      Resume)       │
-                                           └────────────────────┘     └────────────────────┘
+                                          ┌────────────────────┐       ┌────────────────────┐           
+                                          │ Azure Table Storage|       | Azure Blob Storage |
+                                          |   (Fetch Visitor   |       │      (Download     |
+                                          |      Count)        |       |      Resume)       │
+                                          └────────────────────┘       └────────────────────┘
                                                     ▲                            ▲
                                                     └─────────────┼──────────────┘
                                                                   |
