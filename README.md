@@ -1,7 +1,7 @@
 # ☁️ Cloud Resume Challenge - Sonali Mandrupkar
 
 This is a cloud-based resume project inspired by the [Cloud Resume Challenge](https://cloudresumechallenge.dev). 
-It highlights my skills in cloud computing, automation, and full-stack development by combining a static website frontend with a Python FastAPI backend—both deployed on Microsoft Azure.
+It highlights my skills in cloud computing and automation by combining a static website frontend with a Python FastAPI backend—both deployed on Microsoft Azure.
 
 # 🔍 Features
 
@@ -13,24 +13,32 @@ It highlights my skills in cloud computing, automation, and full-stack developme
 
 # 📊 Architecture Diagram
 
-User
-│
-▼
-Browser (Frontend: HTML/CSS/JS)
- │
- ├──> Fetch Visitor Count (/api/visitor)
- │          │
- │          ▼
- │    Azure Table Storage
- │
- └──> Download Resume (/api/resume)
-            │
-            ▼
-      Azure Blob Storage
-            ▲
-            │
-        FastAPI Backend (Azure App Service)
-
+                                                        ┌────────────────────┐
+                                                        │      User          │
+                                                        └────────┬───────────┘
+                                                                 |
+                                                                 ▼
+                                                    ┌────────────────────────────┐
+                                                    │   Azure Storage Account    │
+                                                    │          Frontend          │
+                                                    │       (HTML/CSS/JS)        |
+                                                    └────────────┼───────────────┘
+                                                                 |
+                                                    ┌────────────┼───────────────┐
+                                                    ▼                            ▼
+                                           ┌────────────────────┐       ┌────────────────────┐           
+                                           │ Azure Table Storage|       | Azure Blob Storage |
+                                           |   (Fetch Visitor   |       │     (Download      |
+                                           |      Count)        |       |      Resume)       │
+                                           └────────────────────┘       └────────────────────┘
+                                                    ▲                            ▲
+                                                    └─────────────┼──────────────┘
+                                                                  |
+                                                    ┌─────────────┼──────────────┐
+                                                    │     Azure App Service      │
+                                                    │          Backend           │
+                                                    │         (FastAPI)          | 
+                                                    └────────────────────────────┘
 
 # ⚙️ Tech Stack
 
