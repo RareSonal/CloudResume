@@ -1,6 +1,6 @@
 import os
 import io
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.responses import JSONResponse, StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from azure.storage.blob import BlobServiceClient
@@ -11,7 +11,6 @@ from azure.core.exceptions import ResourceNotFoundError
 app = FastAPI()
 
 # === Configure CORS for Production ===
-# Allow requests only from your actual frontend domain
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://raresonalcloudresume.z30.web.core.windows.net"],
@@ -20,34 +19,24 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# === Load environment variables from Azure Application Settings ===
-AZURE_STORAGE_CONNECTION_STRING = os.getenv("AZURE_STORAGE_CONNECTION_STRING")
-BLOB_CONTAINER = os.getenv("BLOB_CONTAINER")
-BLOB_NAME = os.getenv("BLOB_NAME")
-TABLE_NAME = os.getenv("TABLE_NAME")
-
-# === Validate required environment variables ===
-required_vars = {
-    "AZURE_STORAGE_CONNECTION_STRING": AZURE_STORAGE_CONNECTION_STRING,
-    "BLOB_CONTAINER": BLOB_CONTAINER,
-    "BLOB_NAME": BLOB_NAME,
-    "TABLE_NAME": TABLE_NAME,
-}
-
-missing_vars = [k for k, v in required_vars.items() if not v]
-if missing_vars:
-    raise RuntimeError(f"Missing environment variables: {', '.join(missing_vars)}")
-
 # === Constants for table entity ===
 PARTITION_KEY = "resume"
 ROW_KEY = "visitor"
 
+# === Helper: Fetch and validate env vars only when needed ===
+def get_env_var(name: str) -> str:
+    value = os.getenv(name)
+    if not value:
+        raise RuntimeError(f"Missing environment variable: {name}")
+    return value
+
 # === API endpoint: Visitor Counter ===
 @app.get("/api/visitor")
 async def get_visitor_count():
-    table_client = TableServiceClient.from_connection_string(
-        AZURE_STORAGE_CONNECTION_STRING
-    ).get_table_client(TABLE_NAME)
+    conn_str = get_env_var("AZURE_STORAGE_CONNECTION_STRING")
+    table_name = get_env_var("TABLE_NAME")
+
+    table_client = TableServiceClient.from_connection_string(conn_str).get_table_client(table_name)
 
     try:
         entity = table_client.get_entity(partition_key=PARTITION_KEY, row_key=ROW_KEY)
@@ -62,10 +51,12 @@ async def get_visitor_count():
 # === API endpoint: Resume Download ===
 @app.get("/api/resume")
 async def download_resume():
-    blob_service_client = BlobServiceClient.from_connection_string(
-        AZURE_STORAGE_CONNECTION_STRING
-    )
-    blob_client = blob_service_client.get_container_client(BLOB_CONTAINER).get_blob_client(BLOB_NAME)
+    conn_str = get_env_var("AZURE_STORAGE_CONNECTION_STRING")
+    container = get_env_var("BLOB_CONTAINER")
+    blob_name = get_env_var("BLOB_NAME")
+
+    blob_service_client = BlobServiceClient.from_connection_string(conn_str)
+    blob_client = blob_service_client.get_container_client(container).get_blob_client(blob_name)
 
     stream = io.BytesIO()
     download_stream = blob_client.download_blob()
@@ -75,5 +66,5 @@ async def download_resume():
     return StreamingResponse(
         stream,
         media_type="application/pdf",
-        headers={"Content-Disposition": f"attachment; filename={BLOB_NAME}"},
+        headers={"Content-Disposition": f"attachment; filename={blob_name}"},
     )
