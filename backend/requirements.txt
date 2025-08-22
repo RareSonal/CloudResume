@@ -5,5 +5,7 @@ aiohttp
 python-dotenv
 azure-storage-blob
 azure-data-tables
+
 # Testing dependencies
 pytest
+httpx
