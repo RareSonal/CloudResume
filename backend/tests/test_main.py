@@ -17,7 +17,7 @@ def test_resume_download():
     response = client.get("/api/resume")
     assert response.status_code == 200
 
-    expected_filename = os.getenv("BLOB_NAME", "SonaliMandrupkar_InternshalaResume.pdf")
+    expected_filename = os.getenv("BLOB_NAME", "SonaliMandrupkar_CloudResume.pdf")
 
     content_disposition = response.headers.get("Content-Disposition")
     value, params = cgi.parse_header(content_disposition)
