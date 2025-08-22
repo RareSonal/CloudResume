@@ -27,7 +27,7 @@ jobs:
 
       - name: Run backend tests
         working-directory: ./backend
-        run: pytest tests/
+        run: PYTHONPATH=. pytest tests/
 
       - name: Zip backend for deployment
         run: |
@@ -64,3 +64,4 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0835203982044C16AA6F2B3FD0956524 }}
           package: backend
+
