@@ -219,12 +219,12 @@
 
                <div class="twelve columns">
 
-                  <h3><span><a href="https://github.com/RareSonal/MortgageCalculator"> ☁ Mortgage Calculator </a></span></h3>
+                  <h3><span><a href="https://happy-bay-089cb211e.6.azurestaticapps.net/"> ☁ Mortgage Calculator </a></span></h3>
 				  <p> This project demonstrates a full end-to-end cloud deployment pipeline for a React-based mortgage calculator using Azure Static Web Apps and GitHub Actions. </p>
-                  <p class="info">Cloud Architecture & DevOps Highlights <span>&bull;</span></p>
-                  <p><span>&bull;</span> Built a custom workflow using GitHub Actions that triggers on push and pull_request events.</br>
-                  <span>&bull;</span> Defined build paths (app_location, output_location) and environment tokens for secure, seamless CI/CD pipeline integration.</br>
-                  <span>&bull;</span> Used Azure deployment tokens securely through GitHub secrets for authentication and resource access.<br>
+                  <p class="info">Cloud Architecture & DevOps Highlights</p>
+                  <p><span>&bull;</span> Built a custom workflow using GitHub Actions that triggers on push and pull_request events </br>
+                  <span>&bull;</span> Defined build paths (app_location, output_location) and environment tokens for secure, seamless CI/CD pipeline integration </br>
+                  <span>&bull;</span> Used Azure deployment tokens securely through GitHub secrets for authentication and resource access <br>
                   </p>
                </div>
 
@@ -234,14 +234,83 @@
 
                <div class="twelve columns">
 
-                  <h3><span><a href="https://github.com/RareSonal/Augur"> ☁ Augur </a></span></h3>
-				  <p> A modern web dashboard built using Vue.js and powered by Azure's serverless compute. It fetches real-time distributor metrics through cloud-based APIs deployed via Azure Functions, and renders data-rich table using Element UI components. </p>
-                  <p class="info"> Cloud Architecture & DevOps Highlights <span>&bull;</span></p>
-                  <p><span>&bull;</span> Cloud-hosted frontend via Azure Static Web Apps.</br>
-                  <span>&bull;</span> Dynamic, RESTful API using Node.js Azure Functions.</br>
-                  <span>&bull;</span> Used App Insights and logging for monitoring serverless executions and tracking anomalies.<br>
-				  <span>&bull;</span> Secured APIs using built-in function.json auth levels and Azure environment configurations.<br>
+                  <h3><span><a href="https://ambitious-beach-07465fa10.6.azurestaticapps.net/"> ☁ Augur </a></span></h3>
+				  <p> A modern web dashboard built using Vue.js and powered by Azure's serverless compute. 
+					  It fetches real-time distributor metrics through cloud-based APIs deployed via Azure Functions, and renders data-rich table using Element UI components. </p>
+                  <p class="info"> Cloud Architecture & DevOps Highlights</p>
+                  <p><span>&bull;</span> Cloud-hosted frontend via Azure Static Web Apps </br>
+                  <span>&bull;</span> Dynamic, RESTful API using Node.js Azure Functions </br>
+                  <span>&bull;</span> Used App Insights and logging for monitoring serverless executions and tracking anomalies <br>
+				  <span>&bull;</span> Secured APIs using built-in function.json auth levels and Azure environment configurations <br>
                   </p>
+               
+               </div>
+
+            </div> <!-- item end -->
+
+			 <div class="row item">
+
+               <div class="twelve columns">
+
+                  <h3><span><a href="https://raresonalcloudresume.z30.web.core.windows.net/"> ☁ CloudResume </a></span></h3>
+				  <p> A responsive resume website deployed serverlessly on Azure. 
+					  It tracks real-time visitor count and enables dynamic resume downloads through FastAPI APIs. 
+					  The project demonstrates cloud automation and infrastructure-as-code principles using GitHub Actions and Azure CLI. </p>
+                  <p class="info"> Cloud Architecture & DevOps Highlights</p>
+                  <p><span>&bull;</span> Frontend hosted on Azure Blob Storage ($web) container with public access </br>
+                  <span>&bull;</span> Backend hosted via Azure Web App with API endpoints for resume & metrics </br>
+                  <span>&bull;</span> CI/CD pipelines implemented using GitHub Actions for both services <br>
+				  <span>&bull;</span> APIs securely authenticated using Azure Service Principal <br>
+				  <span>&bull;</span> Persistent storage using Azure Table Storage and Blob Storage <br>
+				  <span>&bull;</span> Unit-tested codebases with Jest (frontend) and Pytest (backend) <br>
+				  </p>
+               
+               </div>
+
+            </div> <!-- item end -->
+
+			 <div class="row item">
+
+               <div class="twelve columns">
+
+                  <h3><span><a href="https://dgixncli7mel9.cloudfront.net/"> ☁ Shiptivitas  </a></span></h3>
+				  <p> A cloud-deployable dashboard that enables teams to visually manage shipping requests. 
+					  Featuring drag-and-drop columns (backlog, in-progress, complete), it supports live updates and logs every change in a PostgreSQL database.  </p>
+                  <p class="info"> Cloud Architecture & DevOps Highlights</p>
+                  <p><span>&bull;</span> Infrastructure Provisioned via Terraform (EC2 instance, security groups, and IAM setup) </br>
+                  <span>&bull;</span> Fully Dockerized App (Node.js backend, PostgreSQL, React frontend) </br>
+                  <span>&bull;</span> Daily cron job cleanup (log truncation, Docker pruning) using crontab within container <br>
+				  <span>&bull;</span> Shell-based DB verification & idempotent SQL seeding with custom seed_db.js <br>
+				  <span>&bull;</span> Secure environment variables and SSL for DB connections <br>
+				  <span>&bull;</span> REST API-based architecture with CORS, Express, and PostgreSQL connection pooling <br>
+				  <span>&bull;</span> Deployed to AWS EC2 with minimal overhead and high portability <br>
+				  <span>&bull;</span> CI/CD pipeline using GitHub Actions for image build/test/deploy <br>
+				  <span>&bull;</span> Monitoring via Cloudwatch for EC2, S3 etc. <br>
+				  <span>&bull;</span> Terraform state file stored on Azure Blob Storage with in-built locking <br>
+				  </p>
+               
+               </div>
+
+            </div> <!-- item end -->
+
+			 <div class="row item">
+
+               <div class="twelve columns">
+
+                  <h3><span><a href="https://main.d31ble8el7nt50.amplifyapp.com/"> ☁ StockWishlist  </a></span></h3>
+				  <p> A cloud-native wishlist platform allowing users to track and add shares stock to their personal wishlist in real time. 
+					  Built using Vue.js and AWS Lambda Function with API Gateway, it emphasizes secure authentication, seamless integration with backend APIs, and developer-friendly CI/CD.  </p>
+                  <p class="info"> Cloud Architecture & DevOps Highlights</p>
+                  <p><span>&bull;</span> All AWS Resources Managed via Terraform, defined modular IaC for RDS (PostgreSQL), Cognito, API Gateway, Lambda, S3, Amplify — supporting full reproducibility and easy teardown </br>
+                  <span>&bull;</span> Frontend Hosted on AWS Amplify with automatic branch-based deployments and environment separation (prod) </br>
+                  <span>&bull;</span> Authentication via AWS Cognito, supporting secure login with Amplify Auth integration and token validation in frontend runtime <br>
+				  <span>&bull;</span> Serverless API using AWS API Gateway + Lambda, secured with Cognito JWT verification in custom authorizers to create authenticated users pool in cognito <br>
+				  <span>&bull;</span> PostgreSQL on AWS RDS used for persistent storage, enforced with SSL-only connections and role-based permissions <br>
+				  <span>&bull;</span> CI/CD pipeline configured in GitHub Actions to auto-test Vue components, generate coverage reports, and deploy to Amplify <br>
+				  <span>&bull;</span> Monitoring and Logs integrated using CloudWatch Logs, API Gateway access logs, RDS and Amplify build logs for debugging <br>
+				  <span>&bull;</span> Local Development with Docker, enabling isolated PostgreSQL DB + API testing before deployment <br>
+				  <span>&bull;</span> Terraform state file stored on S3 and locking provided by DynamoDB <br>
+				  </p>
                
                </div>
 
@@ -326,4 +395,5 @@
 </body>
 
 </html>
+
 
