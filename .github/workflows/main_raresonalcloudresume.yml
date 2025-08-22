@@ -27,7 +27,12 @@ jobs:
 
       - name: Run backend tests
         working-directory: ./backend
-        run: PYTHONPATH=. pytest tests/
+        run: |
+          export AZURE_STORAGE_CONNECTION_STRING="dummy-conn-string"
+          export BLOB_CONTAINER="dummy-container"
+          export BLOB_NAME="dummy.pdf"
+          export TABLE_NAME="dummy-table"
+          PYTHONPATH=. pytest tests/
 
       - name: Zip backend for deployment
         run: |
@@ -64,4 +69,5 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0835203982044C16AA6F2B3FD0956524 }}
           package: backend
+
 
