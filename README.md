@@ -1,4 +1,4 @@
-# ☁️ Cloud Resume Challenge - Sonali Mandrupkar
+# CloudResume – Blob Storage based Portfolio 
 
 This is a cloud-based resume project inspired by the [Cloud Resume Challenge](https://cloudresumechallenge.dev). 
 It highlights my skills in cloud computing and automation by combining a static website frontend with a Python FastAPI backend—both deployed on Microsoft Azure.
