@@ -11,35 +11,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.10'
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
 
-    - name: Install dependencies
-      run: |
-        python -m venv venv
-        source venv/bin/activate
-        pip install -r backend/requirements.txt
-        pip install pytest
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r backend/requirements.txt
+          pip install pytest
 
-    - name: Run backend tests
-      working-directory: ./backend
-      run: pytest tests/
+      - name: Run backend tests
+        working-directory: ./backend
+        run: pytest tests/
 
-    - name: Zip backend for deployment
-      run: |
-        cd backend
-        zip -r ../release.zip .
+      - name: Zip backend for deployment
+        run: |
+          cd backend
+          zip -r ../release.zip .
 
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: backend-app
-        path: release.zip
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-app
+          path: release.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -49,19 +48,19 @@ jobs:
       url: ${{ steps.deploy.outputs.webapp-url }}
 
     steps:
-    - name: Download artifact
-      uses: actions/download-artifact@v4
-      with:
-        name: backend-app
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: backend-app
 
-    - name: Unzip artifact
-      run: unzip release.zip -d backend
+      - name: Unzip artifact
+        run: unzip release.zip -d backend
 
-    - name: Deploy to Azure Web App
-      id: deploy
-      uses: azure/webapps-deploy@v3
-      with:
-        app-name: 'raresonalcloudresume'
-        slot-name: 'Production'
-        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0835203982044C16AA6F2B3FD0956524 }}
-        package: backend
+      - name: Deploy to Azure Web App
+        id: deploy
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'raresonalcloudresume'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0835203982044C16AA6F2B3FD0956524 }}
+          package: backend
